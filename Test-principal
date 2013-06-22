@@ -1,0 +1,48 @@
+// set the output of the sensor to a pin A4 of the arduino
+int sensorPin = 4;
+// the sum of 4 values of the sensor read by the arduino
+int val;
+// set the pin 9 to control a motor
+int motor1Pin = 9;
+// set the pin 11 to control the other motor
+int motor2Pin = 11;
+
+//initialize the arduino
+void setup(){
+ //set the rate to read or write to the Serial port
+  Serial.begin(9600);
+  //set the mode of the pins
+  pinMode(motor1Pin,OUTPUT);
+  pinMode(motor2Pin,OUTPUT);
+  //clear the Serial port
+  Serial.flush();
+ }
+ // the principal program
+ void loop(){
+   // set the valeur of the motor1Pin and motor2Pin to control the 2 motors
+   //to let it advance
+   analogWrite(motor1Pin,90);
+   analogWrite(motor2Pin,220);
+   
+   int i = 0;
+   val = 0;
+   //collect the values of the sensor 4 times and calculate the average
+   for(i=0;i <=3;i++){
+     val  = val + analogRead(sensorPin);
+   }
+   //if the sensor detect an obstacle in front
+   if(val/4 > 420){
+     //advance in an opposite direction for 1 second
+      analogWrite(motor1Pin,220);
+      analogWrite(motor2Pin,90);
+      delay(1000);
+     //turning for 1.5 seconds
+      analogWrite(motor1Pin,0);
+      analogWrite(motor2Pin,90);
+      delay(1500);
+     
+   }
+   //present the average value in the serial port
+   Serial.println(val/4);
+   
+ }
