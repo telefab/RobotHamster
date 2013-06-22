@@ -1,0 +1,68 @@
+// set the pin 9 to control a motor
+int motor1Pin = 9;
+// set the pin 11 to control the other motor
+int motor2Pin = 11;
+// the value written of pin9
+int val1 =0;
+// the value written of pin11
+int val2 = 0;
+
+//make the car advance
+void avance(){
+  val1 = 220;
+  val2 = 90;
+analogWrite(motor1Pin,val1);
+analogWrite(motor2Pin,val2);
+}
+
+//make the car go at an opposite direction
+void go_adverse(){
+  val1 = 90;
+  val2 = 220;
+analogWrite(motor1Pin,val1);
+analogWrite(motor2Pin,val2);
+}
+
+//make the car turn left
+void turn_left(){
+  val1 = 0;
+  val2 = 90;
+analogWrite(motor1Pin,val1);
+analogWrite(motor2Pin,val2);
+  val1 = 220;
+  val2 = 0;
+analogWrite(motor1Pin,val1);
+analogWrite(motor2Pin,val2);
+}
+
+//make the car turn right
+void turn_right(){
+  val1 = 0;
+  val2 = 220;
+analogWrite(motor1Pin,val1);
+analogWrite(motor2Pin,val2);
+  val1 = 90;
+  val2 = 0;
+analogWrite(motor1Pin,val1);
+analogWrite(motor2Pin,val2);
+}
+//initialize the arduino
+void setup(){
+  Serial.begin(9600);
+  pinMode(motor1Pin,OUTPUT);
+  pinMode(motor2Pin,OUTPUT);
+  Serial.flush();
+  }
+  //test the motors
+void loop (){
+analogWrite(motor1Pin,90);
+analogWrite(motor2Pin,0);
+delay(500);
+analogWrite(motor1Pin,0);
+analogWrite(motor2Pin,90);
+delay(500);
+analogWrite(motor1Pin,220);
+analogWrite(motor2Pin,90);
+delay(1000); 
+
+}
